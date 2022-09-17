@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chev666
       objectReference: {fileID: 0}
+    - target: {fileID: 1990250744371632, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4019951310819650, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.143318
@@ -186,6 +190,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2319599903201147307, guid: 7b367dccc659de64b8c4d882ca0505fc,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797294277888965392, guid: 7b367dccc659de64b8c4d882ca0505fc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3975367949231142841, guid: 7b367dccc659de64b8c4d882ca0505fc,
         type: 3}
       propertyPath: m_RootOrder
@@ -207,6 +221,10 @@ PrefabInstance:
     - {fileID: 6536661100272191444, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
     - {fileID: 8528379801725052635, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
     - {fileID: 3379605207261562298, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
+    - {fileID: 8925312124822010832, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
+    - {fileID: 4271778274534309308, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
+    - {fileID: 1637552238167540771, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
+    - {fileID: 2281032658459369998, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7b367dccc659de64b8c4d882ca0505fc, type: 3}
 --- !u!1 &705507993
 GameObject:
