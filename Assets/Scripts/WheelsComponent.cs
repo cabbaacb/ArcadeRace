@@ -28,6 +28,22 @@ namespace Cars
         [SerializeField] private WheelCollider _rightRearCollider;
 
 
+        public WheelCollider[] GetFrontWheels => _frontColliders;
+        public WheelCollider[] GetRearWheels => _rearColliders;
+
+        public void UpdateVisual(float angle)
+        {
+            for (int i = 0; i < _frontColliders.Length; i++)
+            {
+                _frontColliders[i].steerAngle = angle;
+                _frontColliders[i].GetWorldPose(out var position, out var rotation);
+                _frontMeshes[i].SetPositionAndRotation(position, rotation);
+
+                _rearColliders[i].GetWorldPose(out position, out rotation);
+                _rearMeshes[i].SetPositionAndRotation(position, rotation);
+            }
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,10 +56,8 @@ namespace Cars
             _allColliders = new WheelCollider[] { _leftFrontCollider, _rightFrontCollider, _leftRearCollider, _rightRearCollider };
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
+
+
     }
 }

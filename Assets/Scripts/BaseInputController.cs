@@ -1,22 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace Cars
 {
-    public class BaseInputController : MonoBehaviour
+    public abstract class BaseInputController : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        public float Acceleration { get; protected set; }
+        public float Rotate { get; protected set; }
 
-        }
+        public event Action<bool> OnHandBrake;
 
-        // Update is called once per frame
-        void Update()
-        {
+        protected abstract void FixedUpdate();
 
-        }
+
+        protected void CallHandBrake(bool value)
+            => OnHandBrake?.Invoke(value);
+
     }
 }
