@@ -25,6 +25,8 @@ namespace Cars
             _input = GetComponent<BaseInputController>();
             _wheels = GetComponent<WheelsComponent>();
             _rigidbody = GetComponent<Rigidbody>();
+
+            _input.OnHandBrake += OnHandBreake;
             
         }
 
@@ -33,6 +35,32 @@ namespace Cars
             var torque = _input.Acceleration * _torque / 2f;
             foreach (var wheel in _wheels.GetFrontWheels)
                 wheel.motorTorque = torque;
+            //Rotate
+            _wheels.UpdateVisual(_maxSteerAngle * _input.Rotate);
+        }
+
+        private void OnHandBreake(bool value)
+        {
+            if(value)
+            {
+                foreach(var wheel in _wheels.GetRearWheels)
+                {
+                    wheel.brakeTorque = _handBrake;
+                    wheel.motorTorque = 0f;
+                }
+            }
+            else
+            {
+                foreach (var wheel in _wheels.GetRearWheels)
+                {
+                    wheel.brakeTorque = 0f;
+                }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _input.OnHandBrake -= OnHandBreake;
         }
     }
 }
