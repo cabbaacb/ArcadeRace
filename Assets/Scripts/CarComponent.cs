@@ -27,6 +27,8 @@ namespace Cars
             _rigidbody = GetComponent<Rigidbody>();
 
             _input.OnHandBrake += OnHandBreake;
+
+            _rigidbody.centerOfMass = _centerOfMass;
             
         }
 
@@ -57,6 +59,13 @@ namespace Cars
                 }
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(transform.TransformPoint(_centerOfMass), 0.2f);
+        }
+
 
         private void OnDestroy()
         {
