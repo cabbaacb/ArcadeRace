@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Cars
     public class PlayerInputController : BaseInputController
     {
         private CarControls _controls;
+
+        public static event Action OnFinish;
 
         private void Awake()
         {
@@ -32,6 +35,14 @@ namespace Cars
 
             Acceleration = _controls.Car.Acceleration.ReadValue<float>();
 
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<Finish>() != null)
+            {
+                OnFinish?.Invoke();
+                //Time.timeScale = 0f;
+            }
         }
 
         private void OnEnable()
