@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ namespace Cars
         {
             Time.timeScale = 0f;
             _confirmButton.onClick.AddListener(StartTheGame);
+            _showInfoText.text = "";
         }
 
         private void StartTheGame()
@@ -65,21 +67,27 @@ namespace Cars
             StringCounter();
             _counter++;
             _ = WriteInfo(_playerName, _timeCount, _counter);
-            SortInfo();
+            //SortInfo();
+
             StopAllCoroutines();
+            ShowInfo();
         }
 
         
 
         static async Task WriteInfo(string playerName, float time, int counter)
         {
-            using (StreamWriter stream = new StreamWriter(path, true))
+            using (FileStream file = File.Open(path, FileMode.OpenOrCreate))
             {
+                StreamWriter stream = new StreamWriter(path, true);
+
                 await Task.Run(() =>
                 {
+                    
                     stream.WriteLine("{0}. {1} finished at {2}", counter, playerName, time);
 
                 });
+                file.Close();
             }
         }
 
@@ -96,6 +104,51 @@ namespace Cars
             _counter = count;
         }
         
+        private void ShowInfo()
+        {
+            
+            Dictionary<string, float> info = new Dictionary<string, float>();
+
+            using (FileStream file = File.Open(path, FileMode.OpenOrCreate))
+            {
+                StreamReader reader = new StreamReader(path);
+                while (!reader.EndOfStream)
+                {
+                    string[] words = reader.ReadLine().Split(' ');
+                    info.Add(words[1], float.Parse(words[4], System.Globalization.NumberStyles.Float));
+                }                    
+            }
+
+            foreach(var inf in info)
+            {
+                string str = "{inf.Key} finished at {inf.Value}\n";
+                _showInfoText.text += str;
+                print("{inf.Key} finished at {inf.Value}");
+            }
+        }
+
+
+
+        /*
+        private void Sort()
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    string[] words = line.Split(' ');
+                    float time = float.Parse(words[4], System.Globalization.NumberStyles.Float);
+                    print(time);
+
+                }
+            }
+        
+        }
+
+        
+
         private void SortInfo()
         {
             using (StreamReader reader = new StreamReader(path))
@@ -134,6 +187,7 @@ namespace Cars
             _showInfoText.gameObject.SetActive(true);
 
         }
+        */
 
         /*
         private void ReplaceStrings(string line1, string line2)
@@ -179,13 +233,13 @@ namespace Cars
         }
 
         
-        */
+        
 
         public delegate void ObserverReadHandler(string playerColor, string componentName, bool isDestroyed, string whereToMove);
         public static event ObserverReadHandler OnObserverRead;
 
         private bool _stringIsready = true;
-        /*
+        
         private void OnEnable()
         {
             Player.OnObserverWrite += WriteInfo;

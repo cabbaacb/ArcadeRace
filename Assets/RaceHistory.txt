@@ -1,6 +1,0 @@
-1. player finished at 9.799843
-2. player1 finished at 20.04415
-3. player3 finished at 11.37731
-4. player4 finished at 11.30386
-5. player5 finished at 9.326386
-6. player6 finished at 9.931334
