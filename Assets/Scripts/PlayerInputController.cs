@@ -14,6 +14,7 @@ namespace Cars
         private void Awake()
         {
             _controls = new CarControls();
+            GameManager.OnUnblockInput += StartMoving;
             _controls.Car.HandBrake.performed += _ => CallHandBrake(true);
             _controls.Car.HandBrake.canceled += _ => CallHandBrake(false);
         }
@@ -45,9 +46,10 @@ namespace Cars
             }
         }
 
-        private void OnEnable()
+        private void StartMoving(bool start)
         {
-            _controls.Car.Enable();
+            if (start)
+                _controls.Car.Enable();
         }
 
 
